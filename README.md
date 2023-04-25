@@ -20,6 +20,9 @@ To run the project:
 2. Run npm install
 3. Run npm run dev
 
+To use it with a hosted frontend:
+
+Visit https://doc-qa-langchain.vercel.app/
 
 ## Usage
 Once the project is running, go to your web browser and navigate to the URL provided by Vite. You can then upload a PDF or text-based file and ask questions related to the document.
