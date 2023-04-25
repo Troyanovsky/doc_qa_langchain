@@ -4,20 +4,21 @@ Doc_QA_LangChain is a front-end only implementation of a website that allows use
 
 ## What it does
 
-(1) Parse a PDF or text-based file
-(2) Split the document into 1000-token chunks
-(3) Create embeddings of the document chunks with GPT API
-(4) Store the embeddings into an ephemeral document store
-(5) Create an embedding of the question to query relevant chunks from the document
-(6) Get a response from GPT API and display it in the text area
+1. Parse a PDF or text-based file
+2. Split the document into 1000-token chunks
+3. Create embeddings of the document chunks with GPT API
+4. Store the embeddings into an ephemeral document store
+5. Create an embedding of the question to query relevant chunks from the document
+6. Get a response from GPT API and display it in the text area
 
 
 ## Installation
+
 To run the project:
 
-Clone the project
-Run npm install
-Run npm run dev
+1. Clone the project
+2. Run npm install
+3. Run npm run dev
 
 
 ## Usage
