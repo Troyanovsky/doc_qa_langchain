@@ -1,2 +1,35 @@
-# doc_qa_langchain
- 
+# Doc_QA_LangChain
+
+Doc_QA_LangChain is a front-end only implementation of a website that allows users to upload a PDF or text-based file (txt, markdown, JSON, HTML, etc) and ask questions related to the document with GPT. The project uses Vue3 for interactivity, Tailwind CSS for styling, and LangChain for parsing documents/creating vector stores/querying LLM.
+
+## Features
+
+Upload a PDF or text-based file
+Ask questions related to the uploaded document
+Create embeddings of the document chunks with GPT API
+Store the embeddings into an ephemeral document store
+Create an embedding of the question to query relevant chunks from the document
+Get a response from GPT API and display it in the text area
+
+
+## Installation
+To run the project:
+
+Clone the project
+Run npm install
+Run npm run dev
+
+
+## Usage
+Once the project is running, go to your web browser and navigate to the URL provided by Vite. You can then upload a PDF or text-based file and ask questions related to the document.
+
+## Technologies Used
+Vue3
+Tailwind CSS
+LangChain
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Contact
+If you have any questions about the project, please feel free to reach out to me at gzhao1997@gmail.com
