@@ -24,24 +24,26 @@ export default {
       // For user interaction
       question: "What is this document about?",
       answer: "",
-      chatHistory: [],
-      chatHistoryString: "",
+      formattedChatHistory: [],
     };
   },
 
   computed: {
-    formattedChatHistory() {
-      return this.chatHistory
-        .map((message, index) => {
-          if (index % 2 === 0) {
-            // Even index - person emoji
-            return "👤: " + message;
-          } else {
-            // Odd index - robot emoji
-            return "🤖: " + message;
-          }
-        })
-        .join("\n"); // Join the array with newlines for the textarea
+    chatHistory() {
+      return this.formattedChatHistory.map((chat) => chat.message);
+    },
+
+    chatHistoryString() {
+      let chatString = '';
+      this.formattedChatHistory.forEach((message) => {
+        if (message.sender === 'human') {
+          chatString += '👤: ';
+        } else if (message.sender === 'bot') {
+          chatString += '🤖: ';
+        }
+        chatString += `${message.message}\n`;
+      });
+      return chatString;
     },
   },
 
@@ -62,8 +64,7 @@ export default {
       this.vectorStore = null;
       this.chain = null;
       this.question = "What is this document about?";
-      this.chatHistory = [];
-      this.chatHistoryString = "";
+      this.formattedChatHistory = [];
     },
 
     async initializeLLM() {
@@ -71,7 +72,7 @@ export default {
       console.log("Initializing LLM");
       this.model = new OpenAI({
         openAIApiKey: this.openAIKey,
-        temperature: 0.2,
+        temperature: 0.5,
       });
     },
 
@@ -159,16 +160,15 @@ export default {
 
     async askNewQuestion() {
       console.log("Sending Question...")
-      this.chatHistory.push(this.question);
+      const current_question = this.question.trim()
+      this.question = "";
+      this.formattedChatHistory.push({ 'sender': 'human', 'message': current_question })
       const answer = await this.chain.call({
-        question: this.question,
+        question: current_question,
         chat_history: this.chatHistory,
       });
-      this.chatHistory.push(answer.text);
-      this.chatHistoryString =
-        this.chatHistoryString + this.question + answer.text;
-      console.log(this.chatHistory);
-      this.question = "";
+      this.formattedChatHistory.push({ 'sender': 'bot', 'message': answer.text.trim() })
+      console.log(this.formattedChatHistory);
     },
   },
 };
@@ -238,12 +238,13 @@ export default {
         Loading {{ fileName }}... Please wait...
       </div>
       <textarea class="h-3/4 w-full pointer-events-none bg-white rounded-lg border-2 border-teal-500 text-gray-600 px-2"
-        v-model="formattedChatHistory"></textarea>
+        v-model="chatHistoryString"
+        style="overflow-y: scroll;"></textarea>
       <div class="flex w-full h-1/4 bg-white">
         <!-- Textbox for Entering Text -->
         <textarea class="h-full w-10/12 bg-white rounded-lg border-2 border-blue-500 text-gray-600 px-2"
           v-model="question"
-          @keydown.enter.prevent="(event.shiftKey || event.keyCode === 229) ? null : askNewQuestion()"></textarea>
+          @keydown.enter.prevent="askNewQuestion"></textarea>
         <!-- Sending Text Button -->
         <div class="h-full w-2/12 bg-white flex items-center justify-center">
           <button class="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white rounded-lg px-4 py-2 sm:px-2 sm:py-1"
