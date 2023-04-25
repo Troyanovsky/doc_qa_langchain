@@ -2,14 +2,14 @@
 
 Doc_QA_LangChain is a front-end only implementation of a website that allows users to upload a PDF or text-based file (txt, markdown, JSON, HTML, etc) and ask questions related to the document with GPT. The project uses Vue3 for interactivity, Tailwind CSS for styling, and LangChain for parsing documents/creating vector stores/querying LLM.
 
-## Features
+## What it does
 
-Upload a PDF or text-based file
-Ask questions related to the uploaded document
-Create embeddings of the document chunks with GPT API
-Store the embeddings into an ephemeral document store
-Create an embedding of the question to query relevant chunks from the document
-Get a response from GPT API and display it in the text area
+(1) Parse a PDF or text-based file
+(2) Split the document into 1000-token chunks
+(3) Create embeddings of the document chunks with GPT API
+(4) Store the embeddings into an ephemeral document store
+(5) Create an embedding of the question to query relevant chunks from the document
+(6) Get a response from GPT API and display it in the text area
 
 
 ## Installation
