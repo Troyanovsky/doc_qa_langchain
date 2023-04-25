@@ -25,9 +25,10 @@ To run the project:
 Once the project is running, go to your web browser and navigate to the URL provided by Vite. You can then upload a PDF or text-based file and ask questions related to the document.
 
 ## Technologies Used
-Vue3
-Tailwind CSS
-LangChain
+
+- Vue3
+- Tailwind CSS
+- LangChain
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.

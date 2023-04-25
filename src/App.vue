@@ -159,11 +159,11 @@ export default {
 
     async askNewQuestion() {
       console.log("Sending Question...")
+      this.chatHistory.push(this.question);
       const answer = await this.chain.call({
         question: this.question,
         chat_history: this.chatHistory,
       });
-      this.chatHistory.push(this.question);
       this.chatHistory.push(answer.text);
       this.chatHistoryString =
         this.chatHistoryString + this.question + answer.text;
