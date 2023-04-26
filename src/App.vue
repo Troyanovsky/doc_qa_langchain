@@ -72,7 +72,7 @@ export default {
       console.log("Initializing LLM");
       this.model = new OpenAI({
         openAIApiKey: this.openAIKey,
-        temperature: 0.5,
+        temperature: 0.7,
       });
     },
 
@@ -154,7 +154,8 @@ export default {
       console.log("Creating chain...");
       this.chain = ConversationalRetrievalQAChain.fromLLM(
         this.model,
-        this.vectorStore.asRetriever()
+        this.vectorStore.asRetriever(),
+        { returnSourceDocuments: true }
       );
     },
 
@@ -167,8 +168,8 @@ export default {
         question: current_question,
         chat_history: this.chatHistory,
       });
+      console.log(answer)
       this.formattedChatHistory.push({ 'sender': 'bot', 'message': answer.text.trim() })
-      console.log(this.formattedChatHistory);
     },
   },
 };
@@ -238,13 +239,11 @@ export default {
         Loading {{ fileName }}... Please wait...
       </div>
       <textarea class="h-3/4 w-full pointer-events-none bg-white rounded-lg border-2 border-teal-500 text-gray-600 px-2"
-        v-model="chatHistoryString"
-        style="overflow-y: scroll;"></textarea>
+        v-model="chatHistoryString" style="overflow-y: scroll;"></textarea>
       <div class="flex w-full h-1/4 bg-white">
         <!-- Textbox for Entering Text -->
         <textarea class="h-full w-10/12 bg-white rounded-lg border-2 border-blue-500 text-gray-600 px-2"
-          v-model="question"
-          @keydown.enter.prevent="askNewQuestion"></textarea>
+          v-model="question" @keydown.enter.prevent="askNewQuestion"></textarea>
         <!-- Sending Text Button -->
         <div class="h-full w-2/12 bg-white flex items-center justify-center">
           <button class="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white rounded-lg px-4 py-2 sm:px-2 sm:py-1"
