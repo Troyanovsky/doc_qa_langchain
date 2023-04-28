@@ -1,4 +1,4 @@
-# Doc_QA_LangChain
+# Chat with your text or PDF files.
 
 Doc_QA_LangChain is a front-end only implementation of a website that allows users to upload a PDF or text-based file (txt, markdown, JSON, HTML, etc) and ask questions related to the document with GPT. The project uses Vue3 for interactivity, Tailwind CSS for styling, and LangChain for parsing documents/creating vector stores/querying LLM.
 
